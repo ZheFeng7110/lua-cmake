@@ -42,5 +42,5 @@ endif ()
 add_test(
     NAME ${luaTestsNotInternalTestCTestName}
     COMMAND ${luaInterpreterBuiltExecutable} ${luaTestsBasicTestCommandArgs} all.lua
-    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+    WORKING_DIRECTORY "${LUA_SOURCE_DIRECTORY}/test"
 )

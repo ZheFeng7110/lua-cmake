@@ -88,6 +88,10 @@ block ()  # Target: lua_core
     if (CMAKE_C_STANDARD LESS_EQUAL 89)
         target_compile_definitions(${subProjectName} PUBLIC LUA_USE_C89)
     endif ()
+
+    if (UNIX AND NOT APPLE)
+        target_link_libraries(${subProjectName} PRIVATE m)
+    endif ()
 endblock ()
 
 block ()  # Target: lua_stdlib
@@ -108,6 +112,10 @@ block ()  # Target: lua_stdlib
     list(TRANSFORM srcFiles PREPEND "${LUA_SOURCE_DIRECTORY}/")
 
     target_sources(${subProjectName} PRIVATE ${srcFiles})
+
+    if (UNIX AND NOT APPLE)
+        target_link_libraries(${subProjectName} PRIVATE m)
+    endif ()
 endblock ()
 
 # Target: lua

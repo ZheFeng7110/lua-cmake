@@ -1,0 +1,31 @@
+name: Build And Test
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  on-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Setup deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install build-essential cmake curl
+
+      - name: Prepare test version list
+        run: |
+          echo "5.5.0" > test_versions.txt
+          echo "5.4.8" >> test_versions.txt
+
+      - name: Running test script
+        run: python3 ./run_test.py
